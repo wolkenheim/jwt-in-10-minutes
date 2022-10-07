@@ -1,0 +1,26 @@
+{
+  "name": "jwt-in-10-minutes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsc && node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wolkenheim/jwt-in-10-minutes.git"
+  },
+  "author": "wolkenheim.cloud",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wolkenheim/jwt-in-10-minutes/issues"
+  },
+  "homepage": "https://github.com/wolkenheim/jwt-in-10-minutes#readme",
+  "dependencies": {
+    "jsonwebtoken": "^8.5.1",
+    "typescript": "^4.8.4"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^8.5.9"
+  }
+}
