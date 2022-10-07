@@ -1,17 +1,17 @@
 # Everything you need to know about JWT in 10 Minutes
 
-This is a back to basics recap. I tend to forget all the things I learned after a while. And then, months later I
+This is a "back to basics" recap tutorial. I tend to forget things I learned after a while. And then, months later I
 scratch my head and wonder: what was JWT all about again?
 
 To summarize: JWT stands for JSON Web Token. You can debug or view JWT easily on https://jwt.io
-One of the most common forms is using it in http headers as `Authorization: Bearer MI...`.
+One of the most common forms is using it in http headers as `Authorization: Bearer eyJhbGc...`.
 
 It is used for the authentication of users or clients. Secure communication is its goal. It is using cryptographic
 methods. It is used within the OAuth 2.0 flow, which is the de-facto web auth standard. There is a unified language
-for the methods of the process like sign and verify.
+for the methods of the process like *sign* and *verify*.
 
-The token itself is just a plain, base64 encoded string. It is neither encrypted nor secure. It has a signature attached anyhow so
-that receivers can verify the issuer of the token. Anyone can read the content of the token.
+The token itself is just a plain, base64 encoded string. It is neither encrypted nor secure. Anyone can read the content of the token. 
+It has a signature attached so receivers can make sure that it has been issued by the issuer. 
 
 ## Why would you need it?
 For a very simple web application the Users "live" probably in the database. What if you have
@@ -38,7 +38,7 @@ openssl req -x509 -newkey rsa:4096 -keyout private-key.pem -out cert.pem -days 3
 openssl rsa -in private-key.pem -pubout -out public-key.pem
 cd ../
 ```
-This is not strictly necessary. You could use a simple "secret" here, which is a string. However, this will not be
+This is not strictly necessary. You could use a simple string "secret" here, which is a string. However, this will not be
 sufficient if your Auth server is different from your application server. For the sake of this tutorial both methods
 happen on the same script. Just keep in mind that this does not have to be the case.
 
@@ -53,9 +53,15 @@ Verifying the token is simple
 const verify = jwt.verify(token, publicKey,{ignoreExpiration: true});
 ```
 
-Run the code `npm run dev`. 
+Run the code `npm run dev`. This will sign a token (using private key) and verify that token (using public key).
+There are a few options to work with. I recommend the docs of https://github.com/auth0/node-jsonwebtoken
 
 ## Conclusion
 Sign and verify are two seperated processes. The certificate and private should never ever be exposed to the public.
-The public key in contrast is available to anyone who receives potentially token. In applications like Keycloak the
-public key for a realm is exposed on a json endpoint.
+The public key in contrast is available to anyone who receives potentially token. In applications like Keycloak server 
+the public key for a realm is exposed on a json endpoint.
+
+Security rules:
+* Do not send sensitive information with the token. It is not encrypted and anyone can read it
+* Do not share your private key or certificate. Do not commit them into Git. 
+
